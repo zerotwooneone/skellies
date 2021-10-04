@@ -3,7 +3,7 @@ import time
 
 servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
-channels = [0] #range(18)
+channels = [0,1] #range(18)
 targets = [3000,9000] #[1,2000,3000,4000,6000,8000,9000]
 #speeds = [0,1,60]
 accels = [0,1,100,255]
