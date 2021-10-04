@@ -1,7 +1,7 @@
 # skellies
 fun with servos and raspberry-pi
 
-##Hardware
+## Hardware
 ds3218mg - 20kg digital servo
 Pololu Maestro - 18 channel usb servo controller
 bench power supply
