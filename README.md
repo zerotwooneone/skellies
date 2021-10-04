@@ -2,10 +2,12 @@
 fun with servos and raspberry-pi
 
 ## Hardware
-ds3218mg - 20kg digital servo
-Pololu Maestro - 18 channel usb servo controller
-bench power supply
-raspberry pi 3
+* ds3218mg 
+  * 20kg digital servo
+* Pololu Maestro 
+  * 18 channel usb servo controller
+* bench power supply
+* raspberry pi 3
 
 ## Maestro Controller Doc
 https://www.geneseo.edu/~pogo/LabVIEW/Assignments/Demos/maestro.pdf
