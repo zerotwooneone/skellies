@@ -10,7 +10,8 @@ fun with servos and raspberry-pi
 * raspberry pi 3
 
 ## Maestro Controller Doc
-https://www.geneseo.edu/~pogo/LabVIEW/Assignments/Demos/maestro.pdf
+* https://www.geneseo.edu/~pogo/LabVIEW/Assignments/Demos/maestro.pdf
+* https://www.pololu.com/docs/0J41
 
 ### Linux Software
 http://www.pololu.com/file/download/maestro-linux-100507.tar.gz?file_id=0J315
