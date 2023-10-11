@@ -5,6 +5,8 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
+logging.info('started checkout')
+
 with DaprClient() as client:
     for i in range(1, 10):
         order = {'orderId': i}

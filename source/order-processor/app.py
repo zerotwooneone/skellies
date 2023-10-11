@@ -7,7 +7,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-logging.info('started checkout')
+logging.info('started order-processor')
 
 app = FastAPI()
 dapr_app = DaprApp(app)
