@@ -26,4 +26,4 @@ with DaprClient() as client:
         data=json.dumps(testData),
         data_content_type='application/json',
     )
-    logging.info('Published testRange. result: ' + json.dumps(result))
+    logging.info('Published testRange.')
