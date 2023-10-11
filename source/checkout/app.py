@@ -6,14 +6,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 with DaprClient() as client:
-    testData = {'test': 1}
-    # Publish an event/message using Dapr PubSub
-    result = client.publish_event(
-        pubsub_name='orderpubsub',
-        topic_name='testRange',
-        data=json.dumps(testData),
-        data_content_type='application/json',
-    )
     for i in range(1, 10):
         order = {'orderId': i}
         # Publish an event/message using Dapr PubSub
@@ -25,3 +17,13 @@ with DaprClient() as client:
         )
         logging.info('Published data: ' + json.dumps(order))
         time.sleep(1)
+        testData = {'test': 1}
+    logging.info('about to Publish testRange')
+    # Publish an event/message using Dapr PubSub
+    result = client.publish_event(
+        pubsub_name='orderpubsub',
+        topic_name='testRange',
+        data=json.dumps(testData),
+        data_content_type='application/json',
+    )
+    logging.info('Published testRange. result: ' + json.dumps(result))

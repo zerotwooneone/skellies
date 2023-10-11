@@ -3,10 +3,12 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import maestro
 import time
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 dapr_app = DaprApp(app)
-
 
 class CloudEvent(BaseModel):
     datacontenttype: str
@@ -27,9 +29,11 @@ def orders_subscriber(event: CloudEvent):
     print('Subscriber received : %s' % event.data['orderId'], flush=True)
     return {'success': True}
 
+logging.info('about to subscribe to testRange')
 # Dapr subscription routes orders topic to this route
 @dapr_app.subscribe(pubsub='orderpubsub', topic='testRange')
 def orders_subscriber(event: CloudEvent):
+    logging.info('received testRange')
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
     channels = [0,1] #range(18)
