@@ -7,6 +7,8 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
+logging.info('started checkout')
+
 app = FastAPI()
 dapr_app = DaprApp(app)
 
@@ -26,7 +28,7 @@ class CloudEvent(BaseModel):
 # Dapr subscription routes orders topic to this route
 @dapr_app.subscribe(pubsub='orderpubsub', topic='orders')
 def orders_subscriber(event: CloudEvent):
-    print('Subscriber received : %s' % event.data['orderId'], flush=True)
+    logging.info('Subscriber received : %s' % event.data['orderId'], flush=True)
     return {'success': True}
 
 logging.info('about to subscribe to testRange')
@@ -45,13 +47,13 @@ def orders_subscriber(event: CloudEvent):
         for acc in accels:
             for target in targets:
                 for channelIndex in channels:
-                    print(f'ch: {channelIndex} acc:{acc} tar:{target}')
-                    print(f'min:{servo.getMin(channelIndex)} max:{servo.getMax(channelIndex)} pos:{servo.getPosition(channelIndex)} isMov:{servo.isMoving(channelIndex)} gMov:{servo.getMovingState()}')
+                    logging.info(f'ch: {channelIndex} acc:{acc} tar:{target}')
+                    logging.info(f'min:{servo.getMin(channelIndex)} max:{servo.getMax(channelIndex)} pos:{servo.getPosition(channelIndex)} isMov:{servo.isMoving(channelIndex)} gMov:{servo.getMovingState()}')
                     #servo.setSpeed(channelIndex,speed)
                     servo.setAccel(channelIndex,acc)
                     servo.setTarget(channelIndex,target)
                     time.sleep(5)
     finally:
-        print('closing connection')
+        logging.info('closing connection')
         servo.close()
     return {'success': True}
