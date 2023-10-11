@@ -1,0 +1,5 @@
+fastapi
+dapr-ext-fastapi==1.10.0
+cloudevents
+uvicorn
+pyserial
