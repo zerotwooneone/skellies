@@ -34,7 +34,7 @@ def orders_subscriber(event: CloudEvent):
 logging.info('about to subscribe to testRange')
 # Dapr subscription routes orders topic to this route
 @dapr_app.subscribe(pubsub='orderpubsub', topic='testRange')
-def orders_subscriber(event: CloudEvent):
+def testRange_subscriber(event: CloudEvent):
     logging.info('received testRange')
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
