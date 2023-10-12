@@ -25,7 +25,7 @@ def subscribe():
     {
         'pubsubname': 'orderpubsub',
         'topic': 'testRange',
-        'route': 'orders'
+        'route': 'testRange'
     }]
     print('Dapr pub/sub is subscribed to: ' + json.dumps(subscriptions))
     return jsonify(subscriptions)
