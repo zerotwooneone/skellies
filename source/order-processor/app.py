@@ -1,6 +1,7 @@
-from dapr.ext.fastapi import DaprApp
-from fastapi import FastAPI
-from pydantic import BaseModel
+from flask import Flask, request, jsonify
+from cloudevents.http import from_http
+import json
+import os
 import maestro
 import time
 import logging
@@ -9,27 +10,32 @@ logging.basicConfig(level=logging.INFO)
 
 logging.info('started order-processor')
 
-app = FastAPI()
-dapr_app = DaprApp(app)
+app = Flask(__name__)
 
-class CloudEvent(BaseModel):
-    datacontenttype: str
-    source: str
-    topic: str
-    pubsubname: str
-    data: dict
-    id: str
-    specversion: str
-    tracestate: str
-    type: str
-    traceid: str
+app_port = os.getenv('APP_PORT', '6002')
+
+# Register Dapr pub/sub subscriptions
+@app.route('/dapr/subscribe', methods=['GET'])
+def subscribe():
+    subscriptions = [{
+        'pubsubname': 'orderpubsub',
+        'topic': 'orders',
+        'route': 'orders'
+    }]
+    print('Dapr pub/sub is subscribed to: ' + json.dumps(subscriptions))
+    return jsonify(subscriptions)
 
 
-# Dapr subscription routes orders topic to this route
-@dapr_app.subscribe(pubsub='orderpubsub', topic='orders')
-def orders_subscriber(event: CloudEvent):
-    logging.info('Subscriber received : %s' % event.data['orderId'], flush=True)
-    return {'success': True}
+# Dapr subscription in /dapr/subscribe sets up this route
+@app.route('/orders', methods=['POST'])
+def orders_subscriber():
+    event = from_http(request.headers, request.get_data())
+    print('Subscriber received : %s' % event.data['orderId'], flush=True)
+    return json.dumps({'success': True}), 200, {
+        'ContentType': 'application/json'}
+
+
+app.run(port=app_port)
 
 """
 logging.info('about to subscribe to testRange')

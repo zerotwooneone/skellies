@@ -1,5 +1,5 @@
-fastapi
-dapr-ext-fastapi==1.10.0
+Flask
+dapr
 cloudevents
 uvicorn
-pyserial
+typing-extensions
