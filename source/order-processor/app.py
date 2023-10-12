@@ -81,7 +81,7 @@ def goTo_subscriber():
         channelIndex = event.data["channelIndex"]
         accel = event.data["accel"]
         target = event.data["target"]
-        logging.info(f'ch: {channelIndex} accel:{accel} tar:{target}')
+        logging.info(f'about to goTo channelIndex: {channelIndex} accel:{accel} target:{target}')
         #logging.info(f'min:{servo.getMin(channelIndex)} max:{servo.getMax(channelIndex)} pos:{servo.getPosition(channelIndex)} isMov:{servo.isMoving(channelIndex)} gMov:{servo.getMovingState()}')
         #servo.setSpeed(channelIndex,speed)
         servo.setAccel(channelIndex,accel)

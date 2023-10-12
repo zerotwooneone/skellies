@@ -43,11 +43,13 @@ with DaprClient() as client:
     for acc in accels:
         for target in targets:
             testData = {'channelIndex': 0, 'accel':acc, 'target':target}
+            logging.info('about to Publish goto: ' + json.dumps(testData))
             result = client.publish_event(
                 pubsub_name='orderpubsub',
                 topic_name='goTo',
                 data=json.dumps(testData),
                 data_content_type='application/json',
             )
+            logging.info('Published goto: ' + json.dumps(testData))
             time.sleep(5)
             
