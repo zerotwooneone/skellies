@@ -31,6 +31,7 @@ def orders_subscriber(event: CloudEvent):
     logging.info('Subscriber received : %s' % event.data['orderId'], flush=True)
     return {'success': True}
 
+"""
 logging.info('about to subscribe to testRange')
 # Dapr subscription routes orders topic to this route
 @dapr_app.subscribe(pubsub='orderpubsub', topic='testRange')
@@ -57,3 +58,4 @@ def testRange_subscriber(event: CloudEvent):
         logging.info('closing connection')
         servo.close()
     return {'success': True}
+"""
