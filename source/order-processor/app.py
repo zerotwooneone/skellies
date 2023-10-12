@@ -40,7 +40,7 @@ def orders_subscriber():
         'ContentType': 'application/json'}
 
 @app.route('/testRange', methods=['POST'])
-def orders_subscriber():
+def testRange_subscriber():
     event = from_http(request.headers, request.get_data())
     print('testRange received', flush=True)
     return json.dumps({'success': True}), 200, {
