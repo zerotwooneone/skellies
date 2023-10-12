@@ -19,7 +19,10 @@ with DaprClient() as client:
         )
         logging.info('Published data: ' + json.dumps(order))
         time.sleep(1)
-        testData = {'test': 1}
+        
+
+    """
+    testData = {'test': 1}
     logging.info('about to Publish testRange')
     # Publish an event/message using Dapr PubSub
     result = client.publish_event(
@@ -29,3 +32,22 @@ with DaprClient() as client:
         data_content_type='application/json',
     )
     logging.info('Published testRange.')
+    """
+
+    logging.info('about start goTo test')
+    channels = [0] #range(18)
+    targets = [3000, 3500, 6500, 8000,9000] #[1,2000,3000,4000,6000,8000,9000]
+    #speeds = [0,1,60]
+    accels = [1] #,100,255
+    #for speed in speeds:
+    for acc in accels:
+        for target in targets:
+            testData = {'channelIndex': 0, 'accel':acc, 'target':target}
+            result = client.publish_event(
+                pubsub_name='orderpubsub',
+                topic_name='goTo',
+                data=json.dumps(testData),
+                data_content_type='application/json',
+            )
+            time.sleep(5)
+            
