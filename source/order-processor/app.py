@@ -29,8 +29,8 @@ def subscribe():
     },
     {
         'pubsubname': 'orderpubsub',
-        'topic': 'goTO',
-        'route': 'goTO'
+        'topic': 'goTo',
+        'route': 'goTo'
     }]
     print('Dapr pub/sub is subscribed to: ' + json.dumps(subscriptions))
     return jsonify(subscriptions)
@@ -70,11 +70,11 @@ def testRange_subscriber():
         logging.info('closing connection')
         servo.close()
 
-@app.route('/goTO', methods=['POST'])
+@app.route('/goTo', methods=['POST'])
 def goTo_subscriber():
     event = from_http(request.headers, request.get_data())
     
-    logging.info('received goTO')
+    logging.info('received goTo')
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
     try:
