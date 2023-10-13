@@ -11,15 +11,14 @@ with DaprClient() as client:
     for i in range(1, 10):
         order = {'orderId': i}
         # Publish an event/message using Dapr PubSub
-        result = client.publish_event(
-            pubsub_name='orderpubsub',
-            topic_name='orders',
-            data=json.dumps(order),
-            data_content_type='application/json',
+        result = client.invoke_method(
+            'order-processor-sdk',
+            'orders',
+            data=json.dumps(order)            
         )
         logging.info('Published data: ' + json.dumps(order))
         time.sleep(1)
-        
+    
 
     """
     testData = {'test': 1}
@@ -28,8 +27,7 @@ with DaprClient() as client:
     result = client.publish_event(
         pubsub_name='orderpubsub',
         topic_name='testRange',
-        data=json.dumps(testData),
-        data_content_type='application/json',
+        data=json.dumps(testData)        
     )
     logging.info('Published testRange.')
     """
@@ -44,11 +42,10 @@ with DaprClient() as client:
         for target in targets:
             testData = {'channelIndex': 0, 'accel':acc, 'target':target}
             logging.info('about to Publish goto: ' + json.dumps(testData))
-            result = client.publish_event(
-                pubsub_name='orderpubsub',
-                topic_name='goTo',
-                data=json.dumps(testData),
-                data_content_type='application/json',
+            result = client.invoke_method(
+                'order-processor-sdk',
+                'goTo',
+                data=json.dumps(testData)                
             )
             logging.info('Published goto: ' + json.dumps(testData))
             time.sleep(5)

@@ -1,5 +1,2 @@
-Flask
+dapr-ext-grpc
 dapr
-cloudevents
-uvicorn
-typing-extensions
