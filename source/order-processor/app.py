@@ -69,6 +69,8 @@ def testRange_subscriber():
     finally:
         logging.info('closing connection')
         servo.close()
+    return json.dumps({'success': True}), 200, {
+        'ContentType': 'application/json'}
 
 @app.route('/goTo', methods=['POST'])
 def goTo_subscriber():
