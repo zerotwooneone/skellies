@@ -66,5 +66,5 @@ def goTo_subscriber(request: InvokeMethodRequest)-> InvokeMethodResponse:
     return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
 
 
-app.run(port=app_port)
+app.run(app_port)
 
