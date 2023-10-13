@@ -1,4 +1,6 @@
-from dapr.ext.grpc import App, InvokeMethodRequest, InvokeMethodResponse
+from flask import Flask, request, jsonify
+from cloudevents.http import from_http
+import json
 import os
 import maestro
 import time
@@ -8,19 +10,44 @@ logging.basicConfig(level=logging.INFO)
 
 logging.info('started order-processor')
 
-app = App()
+app = Flask(__name__)
 
 app_port = os.getenv('APP_PORT', '6002')
 
-# Dapr subscription in /dapr/subscribe sets up this route
-@app.method('orders')
-def orders_subscriber(request: InvokeMethodRequest)-> InvokeMethodResponse:
-    event = request.json
-    print('Subscriber received : %s' % event.data['orderId'], flush=True)
-    return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+# Register Dapr pub/sub subscriptions
+@app.route('/dapr/subscribe', methods=['GET'])
+def subscribe():
+    subscriptions = [{
+        'pubsubname': 'orderpubsub',
+        'topic': 'orders',
+        'route': 'orders'
+    },
+    {
+        'pubsubname': 'orderpubsub',
+        'topic': 'testRange',
+        'route': 'testRange'
+    },
+    {
+        'pubsubname': 'orderpubsub',
+        'topic': 'goTo',
+        'route': 'goTo'
+    }]
+    print('Dapr pub/sub is subscribed to: ' + json.dumps(subscriptions))
+    return jsonify(subscriptions)
 
-@app.method('testRange')
-def testRange_subscriber(request: InvokeMethodRequest)-> InvokeMethodResponse:
+
+# Dapr subscription in /dapr/subscribe sets up this route
+@app.route('/orders', methods=['POST'])
+def orders_subscriber():
+    event = from_http(request.headers, request.get_data())
+    print('Subscriber received : %s' % event.data['orderId'], flush=True)
+    return json.dumps({'success': True}), 200, {
+        'ContentType': 'application/json'}
+
+@app.route('/testRange', methods=['POST'])
+def testRange_subscriber():
+    event = from_http(request.headers, request.get_data())
+    
     logging.info('received testRange')
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
@@ -42,11 +69,10 @@ def testRange_subscriber(request: InvokeMethodRequest)-> InvokeMethodResponse:
     finally:
         logging.info('closing connection')
         servo.close()
-    return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
 
-@app.method('goTo')
-def goTo_subscriber(request: InvokeMethodRequest)-> InvokeMethodResponse:
-    event = request.json
+@app.route('/goTo', methods=['POST'])
+def goTo_subscriber():
+    event = from_http(request.headers, request.get_data())
     
     logging.info('received goTo')
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
@@ -63,7 +89,8 @@ def goTo_subscriber(request: InvokeMethodRequest)-> InvokeMethodResponse:
     finally:
         logging.info('closing connection')
         servo.close()
-    return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+    return json.dumps({'success': True}), 200, {
+        'ContentType': 'application/json'}
 
 
 app.run(port=app_port)
