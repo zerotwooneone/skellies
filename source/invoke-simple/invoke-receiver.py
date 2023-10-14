@@ -10,6 +10,7 @@ def mymethod(request: InvokeMethodRequest) -> InvokeMethodResponse:
     print(request.metadata, flush=True)
     print(request.text(), flush=True)
 
+    """
     logging.info('received testRange')
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
@@ -28,6 +29,30 @@ def mymethod(request: InvokeMethodRequest) -> InvokeMethodResponse:
                     servo.setAccel(channelIndex,acc)
                     servo.setTarget(channelIndex,target)
                     time.sleep(5)
+    finally:
+        logging.info('closing connection')
+        servo.close()
+    """
+
+    return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+
+@app.method(name='goTo')
+def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
+    print(request.metadata, flush=True)
+    print(request.text(), flush=True)
+
+    logging.info('received goTo')
+    servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
+
+    try:
+        channelIndex = request.metadata["channelIndex"]
+        accel = request.metadata["accel"]
+        target = request.metadata["target"]
+        logging.info(f'about to goTo channelIndex: {channelIndex} accel:{accel} target:{target}')
+        #logging.info(f'min:{servo.getMin(channelIndex)} max:{servo.getMax(channelIndex)} pos:{servo.getPosition(channelIndex)} isMov:{servo.isMoving(channelIndex)} gMov:{servo.getMovingState()}')
+        #servo.setSpeed(channelIndex,speed)
+        servo.setAccel(channelIndex,accel)
+        servo.setTarget(channelIndex,target)
     finally:
         logging.info('closing connection')
         servo.close()

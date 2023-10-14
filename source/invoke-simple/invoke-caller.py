@@ -22,4 +22,24 @@ with DaprClient() as d:
     print(resp.text(), flush=True)
     print(str(resp.status_code), flush=True)
 
-    #time.sleep(2)
+    time.sleep(2)
+
+    resp = d.invoke_method(
+        'invoke-receiver',
+        'goTo',
+        data=json.dumps({
+            'channelIndex': 1,
+            'accel': 255,
+            'target': 3000
+        }),
+    )
+
+    resp = d.invoke_method(
+        'invoke-receiver',
+        'goTo',
+        data=json.dumps({
+            'channelIndex': 1,
+            'accel': 255,
+            'target': 0
+        }),
+    )
