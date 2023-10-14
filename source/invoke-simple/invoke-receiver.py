@@ -47,9 +47,9 @@ def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
     try:
-        channelIndex = request.metadata["channelIndex"]
+        channelIndex = request.proto["channelIndex"]
         accel = request.proto["accel"]
-        target = request.metadata["target"]
+        target = request.proto["target"]
         logging.info(f'about to goTo channelIndex: {channelIndex} accel:{accel} target:{target}')
         #logging.info(f'min:{servo.getMin(channelIndex)} max:{servo.getMax(channelIndex)} pos:{servo.getPosition(channelIndex)} isMov:{servo.isMoving(channelIndex)} gMov:{servo.getMovingState()}')
         #servo.setSpeed(channelIndex,speed)
