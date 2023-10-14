@@ -9,17 +9,17 @@ with DaprClient() as d:
         'message': 'hello world'
     }
 
-    while True:
-        # Create a typed message with content type and body
-        resp = d.invoke_method(
-            'invoke-receiver',
-            'my-method',
-            data=json.dumps(req_data),
-        )
+    #while True:
+    # Create a typed message with content type and body
+    resp = d.invoke_method(
+        'invoke-receiver',
+        'my-method',
+        data=json.dumps(req_data),
+    )
 
-        # Print the response
-        print(resp.content_type, flush=True)
-        print(resp.text(), flush=True)
-        print(str(resp.status_code), flush=True)
+    # Print the response
+    print(resp.content_type, flush=True)
+    print(resp.text(), flush=True)
+    print(str(resp.status_code), flush=True)
 
-        time.sleep(2)
+    #time.sleep(2)
