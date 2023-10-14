@@ -49,3 +49,15 @@ with DaprClient() as d:
             'target': 0
         }),
     )
+
+    time.sleep(2)
+
+    resp = d.invoke_method(
+        'invoke-receiver',
+        'goTo',
+        data=json.dumps({
+            'channelIndex': channelIndex,
+            'accel': 255,
+            'target': 3000
+        }),
+    )
