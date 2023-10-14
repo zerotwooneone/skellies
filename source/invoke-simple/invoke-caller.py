@@ -9,12 +9,13 @@ logging.basicConfig(level=logging.INFO)
 
 async def onInvoke() -> asyncio.coroutine:
     channelIndex = 0
+    accel = 100
     resp = await d.invoke_method_async(
         'invoke-receiver',
         'goTo',
         data=json.dumps({
             'channelIndex': channelIndex,
-            'accel': 255,
+            'accel': accel,
             'target': 3000
         }),
     )
@@ -30,7 +31,7 @@ async def onInvoke() -> asyncio.coroutine:
         'goTo',
         data=json.dumps({
             'channelIndex': channelIndex,
-            'accel': 255,
+            'accel': accel,
             'target': 0
         }),
     )
@@ -46,7 +47,7 @@ async def onInvoke() -> asyncio.coroutine:
         'goTo',
         data=json.dumps({
             'channelIndex': channelIndex,
-            'accel': 255,
+            'accel': accel,
             'target': 3000
         }),
     )
