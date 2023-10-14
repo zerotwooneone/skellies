@@ -2,6 +2,7 @@ from dapr.ext.grpc import App, InvokeMethodRequest, InvokeMethodResponse
 import maestro
 import time
 import logging
+import json
 
 logging.basicConfig(level=logging.INFO)
 app = App()
@@ -47,9 +48,10 @@ def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
     try:
-        channelIndex = request.proto["channelIndex"]
-        accel = request.proto["accel"]
-        target = request.proto["target"]
+        dict = json.loads(request.text())
+        channelIndex = dict["channelIndex"]
+        accel = dict["accel"]
+        target = dict["target"]
         logging.info(f'about to goTo channelIndex: {channelIndex} accel:{accel} target:{target}')
         #logging.info(f'min:{servo.getMin(channelIndex)} max:{servo.getMax(channelIndex)} pos:{servo.getPosition(channelIndex)} isMov:{servo.isMoving(channelIndex)} gMov:{servo.getMovingState()}')
         #servo.setSpeed(channelIndex,speed)
