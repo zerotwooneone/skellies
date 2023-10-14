@@ -3,6 +3,7 @@ import maestro
 import time
 import logging
 
+logging.basicConfig(level=logging.INFO)
 app = App()
 
 @app.method(name='my-method')
@@ -47,7 +48,7 @@ def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
 
     try:
         channelIndex = request.metadata["channelIndex"]
-        accel = request.metadata["accel"]
+        accel = request.proto["accel"]
         target = request.metadata["target"]
         logging.info(f'about to goTo channelIndex: {channelIndex} accel:{accel} target:{target}')
         #logging.info(f'min:{servo.getMin(channelIndex)} max:{servo.getMax(channelIndex)} pos:{servo.getPosition(channelIndex)} isMov:{servo.isMoving(channelIndex)} gMov:{servo.getMovingState()}')

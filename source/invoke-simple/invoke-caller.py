@@ -1,7 +1,10 @@
 import json
 import time
+import logging
 
 from dapr.clients import DaprClient
+
+logging.basicConfig(level=logging.INFO)
 
 with DaprClient() as d:
     req_data = {
