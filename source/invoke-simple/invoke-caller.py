@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 
 async def onInvoke() -> asyncio.coroutine:
     channelIndex = 0
-    accel = 100
+    accel = 1
     resp = await d.invoke_method_async(
         'invoke-receiver',
         'goTo',
