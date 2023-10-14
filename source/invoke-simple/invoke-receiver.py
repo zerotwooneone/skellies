@@ -9,8 +9,8 @@ app = App()
 
 @app.method(name='my-method')
 def mymethod(request: InvokeMethodRequest) -> InvokeMethodResponse:
-    print(request.metadata, flush=True)
-    print(request.text(), flush=True)
+    logging.info(request.metadata)
+    logging.info(request.text())
 
     """
     logging.info('received testRange')
@@ -42,7 +42,7 @@ def mymethod(request: InvokeMethodRequest) -> InvokeMethodResponse:
 def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
     logging.info('received goTo')
     #print(request.metadata, flush=True)
-    logging.info("request text" + request.text(), flush=True)
+    logging.info("request text" + request.text())
 
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
