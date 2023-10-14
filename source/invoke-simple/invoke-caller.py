@@ -37,6 +37,8 @@ with DaprClient() as d:
         }),
     )
 
+    time.sleep(2)
+
     resp = d.invoke_method(
         'invoke-receiver',
         'goTo',
