@@ -38,10 +38,11 @@ def mymethod(request: InvokeMethodRequest) -> InvokeMethodResponse:
 
 @app.method(name='goTo')
 def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
+    logging.info('received goTo')
+    print('received goTo', flush=True)
     print(request.metadata, flush=True)
     print(request.text(), flush=True)
 
-    logging.info('received goTo')
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
     try:
