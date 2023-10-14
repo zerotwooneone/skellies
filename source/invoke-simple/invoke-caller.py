@@ -27,11 +27,12 @@ with DaprClient() as d:
 
     time.sleep(2)
 
+    channelIndex = 0
     resp = d.invoke_method(
         'invoke-receiver',
         'goTo',
         data=json.dumps({
-            'channelIndex': 1,
+            'channelIndex': channelIndex,
             'accel': 255,
             'target': 3000
         }),
@@ -43,7 +44,7 @@ with DaprClient() as d:
         'invoke-receiver',
         'goTo',
         data=json.dumps({
-            'channelIndex': 1,
+            'channelIndex': channelIndex,
             'accel': 255,
             'target': 0
         }),
