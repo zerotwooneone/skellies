@@ -7,20 +7,19 @@ from dapr.clients import DaprClient
 
 logging.basicConfig(level=logging.INFO)
 
-async def onInvoke() -> asyncio.coroutine:
+async def onInvoke(d: DaprClient) -> asyncio.coroutine:
     channelIndex = 0
     accel = 0 #zero is unrestricted, just use speed
     speed = 120 #60 generally means full range takes 1 second, 1 means full range takes 1 minute
     
-    """
     resp = await d.invoke_method_async(
         'invoke-receiver',
         'goTo',
         data=json.dumps({
             'channelIndex': channelIndex,
-            'accel': accel,
-            'target': 4000,
-            'speed': speed
+            #'accel': accel,
+            'target': 4500,
+            #'speed': speed
         }),
     )
     # Print the response
@@ -29,16 +28,15 @@ async def onInvoke() -> asyncio.coroutine:
     print(str(resp.status_code), flush=True)
 
     time.sleep(5)
-    """
-
+    
     resp = await d.invoke_method_async(
         'invoke-receiver',
         'goTo',
         data=json.dumps({
             'channelIndex': channelIndex,
-            'accel': accel,
+            #'accel': accel,
             'target': 9000,
-            'speed': speed
+            #'speed': speed
         }),
     )
     # Print the response
@@ -53,9 +51,9 @@ async def onInvoke() -> asyncio.coroutine:
         'goTo',
         data=json.dumps({
             'channelIndex': channelIndex,
-            'accel': accel,
+            #'accel': accel,
             'target': 3000,
-            'speed': speed
+            #'speed': speed
         }),
     )
     # Print the response
@@ -87,4 +85,4 @@ with DaprClient() as d:
         time.sleep(2)
     """
 
-    asyncio.run(onInvoke())
+    asyncio.run(onInvoke(d))
