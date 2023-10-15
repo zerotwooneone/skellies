@@ -10,14 +10,20 @@ app = App()
 @app.method(name='my-method')
 def mymethod(request: InvokeMethodRequest) -> InvokeMethodResponse:
     logging.info(request.metadata)
+    logging.info(request.text())    
+
+    return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+
+@app.method(name='testRange')
+def testRange(request: InvokeMethodRequest) -> InvokeMethodResponse:
+    logging.info(request.metadata)
     logging.info(request.text())
 
-    """
     logging.info('received testRange')
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
     channels = [0] #range(18)
-    targets = [3000, 3500, 6500, 8000,9000,0] #[1,2000,3000,4000,6000,8000,9000]
+    targets = [3000, 3500, 6500, 8000,9000] #[1,2000,3000,4000,6000,8000,9000]
     #speeds = [0,1,60]
     accels = [1] #,100,255
     try:
@@ -34,7 +40,6 @@ def mymethod(request: InvokeMethodRequest) -> InvokeMethodResponse:
     finally:
         logging.info('closing connection')
         servo.close()
-    """
 
     return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
 

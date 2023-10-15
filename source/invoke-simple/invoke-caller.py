@@ -32,7 +32,7 @@ async def onInvoke() -> asyncio.coroutine:
         data=json.dumps({
             'channelIndex': channelIndex,
             'accel': accel,
-            'target': 0
+            'target': 9000
         }),
     )
     # Print the response
