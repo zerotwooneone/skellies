@@ -45,9 +45,8 @@ def testRange(request: InvokeMethodRequest) -> InvokeMethodResponse:
 
 @app.method(name='goTo')
 def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
-    logging.info('received goTo')
-    #print(request.metadata, flush=True)
-    logging.info("request text" + request.text())
+    logging.debug(request.metadata)
+    logging.debug("request text" + request.text())
 
     dict = json.loads(request.text())
     if("channelIndex" not in dict):
