@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 async def onInvoke() -> asyncio.coroutine:
     channelIndex = 0
     accel = 0 #zero is unrestricted, just use speed
-    speed = 60 #60 generally means full range takes 1 second, 1 means full range takes 1 minute
+    speed = 120 #60 generally means full range takes 1 second, 1 means full range takes 1 minute
     
     """
     resp = await d.invoke_method_async(
