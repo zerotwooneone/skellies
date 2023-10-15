@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 
 async def onInvoke(d: DaprClient) -> asyncio.coroutine:
     channelIndex = 0
-    accel = 0 #zero is unrestricted, just use speed
+    accel = 100 #zero is unrestricted, just use speed
     speed = 240 #60 generally means full range takes 1 second, 1 means full range takes 1 minute
     
     resp = await d.invoke_method_async(
@@ -19,7 +19,7 @@ async def onInvoke(d: DaprClient) -> asyncio.coroutine:
             'channelIndex': channelIndex,
             'accel': accel,
             'target': 6000,
-            #'speed': speed
+            'speed': speed
         }),
     )
     # Print the response
@@ -27,7 +27,7 @@ async def onInvoke(d: DaprClient) -> asyncio.coroutine:
     print(resp.text(), flush=True)
     print(str(resp.status_code), flush=True)
 
-    time.sleep(5)
+    time.sleep(10)
     
     resp = await d.invoke_method_async(
         'invoke-receiver',
@@ -44,7 +44,7 @@ async def onInvoke(d: DaprClient) -> asyncio.coroutine:
     print(resp.text(), flush=True)
     print(str(resp.status_code), flush=True)
 
-    time.sleep(5)
+    time.sleep(10)
 
     resp = await d.invoke_method_async(
         'invoke-receiver',
