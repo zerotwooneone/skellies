@@ -12,7 +12,7 @@ async def onInvoke() -> asyncio.coroutine:
         channelIndex = 1
         accel = 0 #zero is unrestricted, just use speed
         speed = 255 #60 generally means full range takes 1 second, 1 means full range takes 1 minute
-        commandDelay = 5 #seconds between commands
+        commandDelay = 1 #seconds between commands
         
         resp = await d.invoke_method_async(
             'invoke-receiver',
@@ -76,14 +76,9 @@ async def onInvoke() -> asyncio.coroutine:
             'goTo',
             data=json.dumps({
                 'channelIndex': channelIndex,
-                #'accel': accel,
-                'target': 3000,
-                #'speed': speed
+                'target': 100,
             }),
         )
-        logging.debug(resp.content_type)
-        logging.debug(resp.text())
-        logging.debug(str(resp.status_code))
 
 """
 req_data = {
