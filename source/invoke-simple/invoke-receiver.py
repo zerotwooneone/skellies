@@ -59,11 +59,11 @@ def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
     try:
         channelIndex = dict["channelIndex"]
         target = dict["target"]
+        speed = dict["speed"] if "speed" in dict else None
         if("speed" in dict):
-            speed = dict["speed"]
             servo.setSpeed(channelIndex, speed)
-        if("accel" in dict):
-            accel = dict["accel"]
+        accel = dict["accel"] if "accel" in dict else None
+        if("accel" in dict):            
             servo.setAccel(channelIndex, accel)
         logging.debug(f'about to goTo channelIndex: {channelIndex} accel:{accel} speed:{speed} target:{target}')
         servo.setTarget(channelIndex,target)
