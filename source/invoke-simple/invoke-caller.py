@@ -12,6 +12,7 @@ async def onInvoke() -> asyncio.coroutine:
         channelIndex = 1
         accel = 5 #zero is unrestricted, just use speed
         speed = 240 #60 generally means full range takes 1 second, 1 means full range takes 1 minute
+        commandDelay = 2 #seconds between commands
         
         resp = await d.invoke_method_async(
             'invoke-receiver',
@@ -21,7 +22,6 @@ async def onInvoke() -> asyncio.coroutine:
                 'accel': accel,
             }),
         )
-        # Print the response
         logging.debug(resp.content_type)
         logging.debug(resp.text())
         logging.debug(str(resp.status_code))
@@ -34,7 +34,6 @@ async def onInvoke() -> asyncio.coroutine:
                 'speed': speed,
             }),
         )
-        # Print the response
         logging.debug(resp.content_type)
         logging.debug(resp.text())
         logging.debug(str(resp.status_code))
@@ -54,7 +53,7 @@ async def onInvoke() -> asyncio.coroutine:
         logging.debug(resp.text())
         logging.debug(str(resp.status_code))
 
-        #time.sleep(10)
+        time.sleep(commandDelay)
         
         resp = await d.invoke_method_async(
             'invoke-receiver',
@@ -66,12 +65,11 @@ async def onInvoke() -> asyncio.coroutine:
                 #'speed': speed
             }),
         )
-        # Print the response
         logging.debug(resp.content_type)
         logging.debug(resp.text())
         logging.debug(str(resp.status_code))
 
-        #time.sleep(10)
+        time.sleep(commandDelay)
 
         resp = await d.invoke_method_async(
             'invoke-receiver',
@@ -83,7 +81,6 @@ async def onInvoke() -> asyncio.coroutine:
                 #'speed': speed
             }),
         )
-        # Print the response
         logging.debug(resp.content_type)
         logging.debug(resp.text())
         logging.debug(str(resp.status_code))
