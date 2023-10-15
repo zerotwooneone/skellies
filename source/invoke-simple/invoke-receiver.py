@@ -49,20 +49,78 @@ def goTo(request: InvokeMethodRequest) -> InvokeMethodResponse:
     #print(request.metadata, flush=True)
     logging.info("request text" + request.text())
 
+    dict = json.loads(request.text())
+    if("channelIndex" not in dict):
+        logging.error("missing channel index")
+        return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+    
     servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
     try:
-        dict = json.loads(request.text())
         channelIndex = dict["channelIndex"]
-        accel = dict["accel"]
         target = dict["target"]
-        logging.info(f'about to goTo channelIndex: {channelIndex} accel:{accel} target:{target}')
-        #logging.info(f'min:{servo.getMin(channelIndex)} max:{servo.getMax(channelIndex)} pos:{servo.getPosition(channelIndex)} isMov:{servo.isMoving(channelIndex)} gMov:{servo.getMovingState()}')
-        #servo.setSpeed(channelIndex,speed)
-        servo.setAccel(channelIndex,accel)
+        if("speed" in dict):
+            speed = dict["speed"]
+            servo.setSpeed(channelIndex, speed)
+        if("accel" in dict):
+            accel = dict["accel"]
+            servo.setAccel(channelIndex, accel)
+        logging.debug(f'about to goTo channelIndex: {channelIndex} accel:{accel} speed:{speed} target:{target}')
         servo.setTarget(channelIndex,target)
     finally:
         logging.info('closing connection')
+        servo.close()
+
+    return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+
+@app.method(name='setAcceleration')
+def setAcceleration(request: InvokeMethodRequest) -> InvokeMethodResponse:
+    logging.debug(request.metadata)
+    logging.debug("request text" + request.text())
+
+    dict = json.loads(request.text())
+    if("channelIndex" not in dict):
+        logging.error("missing channel index")
+        return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+    if("accel" not in dict):
+        logging.error("missing acceleration [accel]")
+        return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+
+    servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
+
+    try:        
+        channelIndex = dict["channelIndex"]
+        accel = dict["accel"]
+        logging.debug(f'about to set acceleration: {channelIndex} accel:{accel}')
+        servo.setAccel(channelIndex, accel)        
+    finally:
+        logging.debug('closing connection')
+        servo.close()
+
+    return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+
+@app.method(name='setSpeed')
+def setSpeed(request: InvokeMethodRequest) -> InvokeMethodResponse:
+    logging.debug(request.metadata)
+    logging.debug("request text" + request.text())
+
+    dict = json.loads(request.text())
+    if("channelIndex" not in dict):
+        logging.error("missing channel index")
+        return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+    if("speed" not in dict):
+        logging.error("missing speed [speed]")
+        return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
+
+    servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
+
+    try:        
+        channelIndex = dict["channelIndex"]
+        speed = dict["speed"]
+        logging.debug(f'about to set speed: {channelIndex} speed:{speed}')
+        servo.setSpeed(channelIndex, speed)        
+    finally:
+        logging.debug('closing connection')
         servo.close()
 
     return InvokeMethodResponse(b'INVOKE_RECEIVED', "text/plain; charset=UTF-8")
