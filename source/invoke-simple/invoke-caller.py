@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 
 async def onInvoke() -> asyncio.coroutine:
     with DaprClient() as d:
-        channelIndex = 0
+        channelIndex = 1
         accel = 5 #zero is unrestricted, just use speed
         speed = 240 #60 generally means full range takes 1 second, 1 means full range takes 1 minute
         
