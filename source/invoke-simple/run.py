@@ -8,7 +8,7 @@ commandDelay = 2 #seconds between commands
 cigChannel = 1
 armChannel = 0
 armAccel = 5
-cigAccel = 1
+cigAccel = 10
 speed = None
 
 servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
