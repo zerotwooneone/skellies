@@ -9,10 +9,10 @@ logging.basicConfig(level=logging.INFO)
 
 async def onInvoke() -> asyncio.coroutine:
     with DaprClient() as d:
-        channelIndex = 1
-        accel = 0 #zero is unrestricted, just use speed
+        channelIndex = 2
+        accel = 5 #zero is unrestricted, just use speed
         speed = 255 #60 generally means full range takes 1 second, 1 means full range takes 1 minute
-        commandDelay = 1 #seconds between commands
+        commandDelay = 2 #seconds between commands
         
         resp = await d.invoke_method_async(
             'invoke-receiver',
@@ -26,17 +26,17 @@ async def onInvoke() -> asyncio.coroutine:
         logging.debug(resp.text())
         logging.debug(str(resp.status_code))
 
-        resp = await d.invoke_method_async(
-            'invoke-receiver',
-            'setSpeed',
-            data=json.dumps({
-                'channelIndex': channelIndex,
-                'speed': speed,
-            }),
-        )
-        logging.debug(resp.content_type)
-        logging.debug(resp.text())
-        logging.debug(str(resp.status_code))
+        #resp = await d.invoke_method_async(
+        #    'invoke-receiver',
+        #    'setSpeed',
+        #    data=json.dumps({
+        #        'channelIndex': channelIndex,
+        #        'speed': speed,
+        #    }),
+        #)
+        #logging.debug(resp.content_type)
+        #logging.debug(resp.text())
+        #logging.debug(str(resp.status_code))
         
         resp = await d.invoke_method_async(
             'invoke-receiver',
@@ -44,7 +44,7 @@ async def onInvoke() -> asyncio.coroutine:
             data=json.dumps({
                 'channelIndex': channelIndex,
                 #'accel': accel,
-                'target': 0,
+                'target': 3000,
                 #'speed': speed
             }),
         )
@@ -54,29 +54,13 @@ async def onInvoke() -> asyncio.coroutine:
         logging.debug(str(resp.status_code))
 
         time.sleep(commandDelay)
-        
+
         resp = await d.invoke_method_async(
             'invoke-receiver',
             'goTo',
             data=json.dumps({
                 'channelIndex': channelIndex,
-                #'accel': accel,
                 'target': 9000,
-                #'speed': speed
-            }),
-        )
-        logging.debug(resp.content_type)
-        logging.debug(resp.text())
-        logging.debug(str(resp.status_code))
-
-        time.sleep(commandDelay)
-
-        resp = await d.invoke_method_async(
-            'invoke-receiver',
-            'goTo',
-            data=json.dumps({
-                'channelIndex': channelIndex,
-                'target': 100,
             }),
         )
 
