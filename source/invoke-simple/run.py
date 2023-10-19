@@ -15,7 +15,8 @@ try:
     
     logging.info(f'starting channelIndex: {channelIndex} accel:{accel} speed:{speed}')
     
-    servo.setAccel(channelIndex, accel)    
+    servo.setAccel(channelIndex, accel)
+    time.sleep(1)
     
     #servo.setSpeed(channelIndex, speed)    
     
