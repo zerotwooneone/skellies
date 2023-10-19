@@ -30,10 +30,10 @@ try:
     servo.setAccel(cigChannel, cigAccel)
     time.sleep(commandDelay)
 
-    servo.setTarget(cigChannel,12000)
+    servo.setTarget(cigChannel,24000)
     time.sleep(2)
 
-    servo.setTarget(cigChannel,10)
+    servo.setTarget(cigChannel,5)
     time.sleep(3)
 
     #move arm back    
