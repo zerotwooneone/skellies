@@ -28,13 +28,13 @@ try:
 
     #cig time
     servo.setAccel(cigChannel, cigAccel)
-    time.sleep(1)
+    time.sleep(commandDelay)
 
     servo.setTarget(cigChannel,12000)
-    time.sleep(commandDelay)
+    time.sleep(5)
 
-    servo.setTarget(cigChannel,0)
-    time.sleep(commandDelay)
+    servo.setTarget(cigChannel,10)
+    time.sleep(3)
 
     #move arm back    
     servo.setTarget(armChannel,9000)
