@@ -7,13 +7,13 @@ logging.basicConfig(level=logging.INFO)
 commandDelay = 2 #seconds between commands
 channelIndex = 2    
 accel = 5
-#speed = 
+speed = None
 
 servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
 try:
     
-    logging.info(f'starting channelIndex: {channelIndex} accel:{accel} speed:{speed or "not set"}')
+    logging.info(f'starting channelIndex: {channelIndex} accel:{accel} speed:{speed}')
     
     servo.setAccel(channelIndex, accel)    
     
