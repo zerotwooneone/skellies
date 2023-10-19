@@ -24,7 +24,7 @@ try:
     
     #move arm
     servo.setTarget(armChannel,3000)
-    #time.sleep(commandDelay)
+    time.sleep(2)
 
     #cig time
     servo.setAccel(cigChannel, cigAccel)
