@@ -34,7 +34,7 @@ try:
     time.sleep(2)
 
     servo.setTarget(cigChannel,5)
-    time.sleep(3)
+    time.sleep(commandDelay)
 
     #move arm back    
     servo.setTarget(armChannel,9000)
