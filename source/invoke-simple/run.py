@@ -4,7 +4,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-commandDelay = 2 #seconds between commands
+commandDelay = 0.1 #seconds between commands
 cigChannel = 1
 armChannel = 0
 armAccel = 5
@@ -24,7 +24,7 @@ try:
     
     #move arm
     servo.setTarget(armChannel,3000)
-    time.sleep(commandDelay)
+    #time.sleep(commandDelay)
 
     #cig time
     servo.setAccel(cigChannel, cigAccel)
