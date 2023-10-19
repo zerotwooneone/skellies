@@ -31,7 +31,7 @@ try:
     time.sleep(commandDelay)
 
     servo.setTarget(cigChannel,12000)
-    time.sleep(5)
+    time.sleep(2)
 
     servo.setTarget(cigChannel,10)
     time.sleep(3)
