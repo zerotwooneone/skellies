@@ -15,7 +15,7 @@ servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 
 try:
     
-    logging.info(f'starting channelIndex: {channelIndex} accel:{armAccel} speed:{speed}')
+    logging.info(f'starting armChannel: {armChannel} cigChannel: {cigChannel} armAccel:{armAccel} cigAccel:{cigAccel}')
     
     #setup arm
     servo.setAccel(armChannel, armAccel)
@@ -38,7 +38,7 @@ try:
 
     #move arm back    
     servo.setTarget(armChannel,9000)
-    
+
 finally:
     logging.info('closing connection')
     servo.close()
