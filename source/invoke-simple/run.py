@@ -4,11 +4,18 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-commandDelay = 0.1 #seconds between commands
+commandDelay = 0.1 #seconds between commands; we need a short time for the message to get to the controller
+
 cigChannel = 1
+cigAccel = 10
+cigDim = 5
+cigBright = 24000
+
 armChannel = 0
 armAccel = 5
-cigAccel = 10
+armDown = 3000
+armUp = 9000
+
 speed = None
 
 servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
@@ -16,28 +23,33 @@ servo =  maestro.Controller() #/dev/ttyACM1 or ttyACM0(default)
 try:
     
     logging.info(f'starting armChannel: {armChannel} cigChannel: {cigChannel} armAccel:{armAccel} cigAccel:{cigAccel}')
+
+    #init
+    servo.setAccel(cigChannel, cigAccel)
+    time.sleep(commandDelay)
+    servo.setTarget(cigChannel,cigDim)
+    time.sleep(commandDelay)
     
-    #setup arm
     servo.setAccel(armChannel, armAccel)
-    time.sleep(1)    
+    time.sleep(commandDelay)
+    servo.setTarget(armChannel,armDown)
+    time.sleep(commandDelay)
+    
     #servo.setSpeed(channelIndex, speed)    
     
     #move arm
-    servo.setTarget(armChannel,3000)
+    servo.setTarget(armChannel,armUp)
     time.sleep(2)
 
     #cig time
-    servo.setAccel(cigChannel, cigAccel)
-    time.sleep(commandDelay)
-
-    servo.setTarget(cigChannel,24000)
+    servo.setTarget(cigChannel,cigBright)
     time.sleep(2)
 
-    servo.setTarget(cigChannel,5)
+    servo.setTarget(cigChannel,cigDim)
     time.sleep(commandDelay)
 
     #move arm back    
-    servo.setTarget(armChannel,9000)
+    servo.setTarget(armChannel,armDown)
 
 finally:
     logging.info('closing connection')
