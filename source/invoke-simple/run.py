@@ -20,6 +20,9 @@ try:
     #servo.setSpeed(channelIndex, speed)    
     
     servo.setTarget(channelIndex,3000)
+
+    time.sleep(commandDelay)
+
     servo.setTarget(channelIndex,9000)
 finally:
     logging.info('closing connection')
