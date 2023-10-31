@@ -8,7 +8,7 @@ commandDelay = 0.1 #seconds between commands; we need a short time for the messa
 
 cigChannel = 1
 cigAccel = 10
-cigDim = 5
+cigDim = 1
 cigBright = 24000
 
 armChannel = 0
