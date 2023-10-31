@@ -13,8 +13,8 @@ cigBright = 24000
 
 armChannel = 0
 armAccel = 5
-armDown = 3000
-armUp = 9000
+armDown = 9000
+armUp = 3000
 
 speed = None
 
